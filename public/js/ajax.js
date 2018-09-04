@@ -1,6 +1,6 @@
 $("#urlForm").submit(function(e){
 	e.preventDefault();
-	
+
 	$.ajax({
 		url: '/generateUrl',
 		method: 'POST',
@@ -9,6 +9,15 @@ $("#urlForm").submit(function(e){
 		if(response == "InvalidURL"){
 			alert("Url is invalid");
 		}else{
+			$("#lastdiv").css('display', 'flex');
+			$("#last").fadeOut(1000, () => {
+				$("#last").text(`Brevia.re/${response}`);
+				$("#lasturl").attr("href", response);
+				$("#last").fadeIn(1000);
+			});		
+			if($("#urls").children().length == 3){
+				$("#urls").children().last().remove();
+			}
 			$("#urls").prepend(`
 				<div class="row justify-content-md-center">
 		          <div class="col-md-6">
